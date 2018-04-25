@@ -1,0 +1,100 @@
+package com.example.can.saveme_contactlist;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.time.Instant;
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements User {
+
+    //Properties
+    ArrayList<User> contacts = new ArrayList<>();
+
+    //Methods
+    public ArrayList getContacts() {
+        return contacts;
+    }
+
+    public void addToList( User user) {
+        contacts.add( user);
+    }
+
+    public void  removeFromList( User user) {
+        contacts.remove( user);
+    }
+
+    public User getContact( int i) {
+        return contacts.get( i);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Opens Contact List Edit Page
+
+                Intent edit = new Intent( MainActivity.this, Edit.class);
+                startActivity( edit);
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_edit) {
+
+            //Opens Contact List Edit Page
+            Intent edit = new Intent( MainActivity.this, Edit.class);
+            startActivity( edit);
+
+        }
+
+        else if (id == R.id.action_delete) {
+
+            //Delete Contacts, will be implemented later
+
+        }
+
+        else if (id == R.id.action_menu) {
+
+            //Returns to the main menu
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
